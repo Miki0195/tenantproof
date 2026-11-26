@@ -1,0 +1,52 @@
+{
+  "name": "tenantproof",
+  "version": "0.0.0",
+  "description": "TenantProof is an early-stage, open-source CLI for testing explicit HTTP API authorization expectations. Status: pre-v0.1.0, not ready for production use. Scope: local-first, GET/HEAD checks, test credentials only. The first release will offer a YAML policy, terminal output, redacted JSON results and a runnable local example.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsup src/cli.ts --format esm --target node22 --clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run lint && npm run typecheck",
+    "verify": "npm run check && npm run build && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miki0195/tenantproof.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Miki0195/tenantproof/issues"
+  },
+  "homepage": "https://github.com/Miki0195/tenantproof#readme",
+  "engines": {
+    "node": ">=22"
+  },
+  "private": true,
+  "bin": {
+    "tenantproof": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.11",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^5.1.2"
+  }
+}
