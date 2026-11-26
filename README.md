@@ -1,4 +1,5 @@
 # TenantProof
+
 TenantProof is an early-stage, open-source CLI for testing
 explicit HTTP API authorization expectations.
 Status: pre-v0.1.0, not ready for production use.
