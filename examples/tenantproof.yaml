@@ -1,0 +1,49 @@
+# TenantProof policy for a local multi-tenant project API.
+# Tokens are never stored here: each actor names the environment variable that will hold a test credential when checks run.
+version: 1
+baseUrl: http://localhost:3000
+timeoutMs: 3000
+
+actors:
+  acme-admin:
+    tokenEnv: ACME_ADMIN_TOKEN
+  globex-member:
+    tokenEnv: GLOBEX_MEMBER_TOKEN
+  visitor:
+    anonymous: true
+
+checks:
+  - id: acme-admin-lists-acme-projects
+    actor: acme-admin
+    method: GET
+    path: /api/tenants/acme/projects
+    expect:
+      status: 200
+
+  - id: acme-admin-reads-acme-project-headers
+    actor: acme-admin
+    method: HEAD
+    path: /api/tenants/acme/projects/prj_1001
+    expect:
+      status: 200
+
+  - id: globex-member-cannot-list-acme-projects
+    actor: globex-member
+    method: GET
+    path: /api/tenants/acme/projects
+    expect:
+      status: 403
+
+  - id: globex-member-cannot-see-acme-invoice
+    actor: globex-member
+    method: GET
+    path: /api/tenants/acme/invoices/inv_2024_0042
+    expect:
+      status: 404
+
+  - id: visitor-must-authenticate
+    actor: visitor
+    method: GET
+    path: /api/tenants/acme/projects?limit=10
+    expect:
+      status: 401
